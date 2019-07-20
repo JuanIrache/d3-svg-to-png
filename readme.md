@@ -1,6 +1,6 @@
 #d3-svg-to-png
 
-Converts SVG elements to PNG and other image formats while keeping CSS styles. Optionally, it returns the data as a promise ordownloads it. It can also rescale the svg image.
+Converts SVG elements in the browser to PNG and other image formats, while keeping CSS styles. Optionally, it returns the data as a promise or downloads it. It can also rescale the svg image, ignore certain DOM elements...
 
 ## Installation
 
@@ -44,4 +44,8 @@ Please report any problem, as this has not been thoroughly tested and could be i
 
 ## TODO
 
-- Add feature to remove a class of elements, optionally
+- Test on multiple browsers
+
+## More creative coding
+
+If you liked this you might like other [creative coding projects](https://tailorandwayne.com/coding-projects/).
