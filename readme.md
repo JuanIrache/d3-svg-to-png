@@ -44,6 +44,7 @@ Please report any problem, as this has not been thoroughly tested and could be i
 
 ## TODO
 
+- Add tests and continuous integration
 - Test on multiple browsers
 
 ## More creative coding
