@@ -1,0 +1,29 @@
+{
+  "name": "d3-svg-to-png",
+  "version": "0.1.0",
+  "description": "Converts SVG elements to PNG and other image formats while keeping CSS styles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "svg",
+    "png",
+    "jpg",
+    "jpeg",
+    "webp",
+    "d3",
+    "data",
+    "visualization",
+    "js",
+    "javascript",
+    "css",
+    "dom",
+    "html"
+  ],
+  "author": "Juan Irache Duesca",
+  "license": "ISC",
+  "dependencies": {
+    "d3": "^5.9.7"
+  }
+}
