@@ -1,5 +1,3 @@
-const { select } = require('d3');
-
 const inlineStyles = target => {
   const selfCopyCss = elt => {
     const computed = window.getComputedStyle(elt);
@@ -7,9 +5,9 @@ const inlineStyles = target => {
     for (let i = 0; i < computed.length; i++) {
       css[computed[i]] = computed.getPropertyValue(computed[i]);
     }
-    const selected = select(elt);
+
     for (const key in css) {
-      selected.style(key, css[key]);
+      elt.style[key] = css[key];
     }
     return css;
   };

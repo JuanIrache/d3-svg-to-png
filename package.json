@@ -31,7 +31,5 @@
   },
   "homepage": "https://github.com/JuanIrache/d3-svg-to-png#readme",
   "license": "ISC",
-  "dependencies": {
-    "d3": "^5.9.7"
-  }
+  "dependencies": {}
 }
