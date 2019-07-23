@@ -17,7 +17,7 @@ d3ToPng('selector', 'name');
 
 ## Mandatory fields
 
-- **Selector** (String): Commonly 'svg';
+- **Selector** (String): Commonly 'svg'.
 - **Name** (String): Name for the file output, without extension.
 
 Output: **name.png**
@@ -41,6 +41,7 @@ d3ToPng('svg', 'name', { scale: 3, format: 'webp', quality: 0.01, download: fals
 ## Notes
 
 Please report any problem, as this has not been thoroughly tested and could be improved.
+This module works outside of D3. It was created for the [GoPro Telemetry Extractor](https://tailorandwayne.com/gopro-telemetry-extractor/#)
 
 ## TODO
 
