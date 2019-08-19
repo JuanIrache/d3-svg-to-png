@@ -1,11 +1,39 @@
 {
-  "name": "d3-svg-to-png",
-  "version": "0.1.4",
-  "description": "Converts SVG elements to PNG and other image formats while keeping CSS styles",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "d3-svg-to-png",
+  "_id": "d3-svg-to-png@0.1.3",
+  "_inBundle": false,
+  "_integrity": "sha512-8N7SZ71KQUbX+mNI6DSf4dPe94hlv/fO7IDCus4nXRWqX5+rtTYrz0/BDzP2UGEfu8BXqr6GUYGMpIZDpfbOFQ==",
+  "_location": "/d3-svg-to-png",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "d3-svg-to-png",
+    "name": "d3-svg-to-png",
+    "escapedName": "d3-svg-to-png",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/d3-svg-to-png/-/d3-svg-to-png-0.1.3.tgz",
+  "_shasum": "1c5e7f6c7630f75fbdd23b9d883886fc6acd546e",
+  "_spec": "d3-svg-to-png",
+  "_where": "D:\\Data\\code_projs\\test",
+  "author": {
+    "name": "Juan Irache Duesca"
+  },
+  "bugs": {
+    "url": "https://github.com/JuanIrache/d3-svg-to-png/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Converts SVG elements to PNG and other image formats while keeping CSS styles",
+  "homepage": "https://github.com/JuanIrache/d3-svg-to-png#readme",
   "keywords": [
     "svg",
     "png",
@@ -21,15 +49,15 @@
     "dom",
     "html"
   ],
-  "author": "Juan Irache Duesca",
+  "license": "ISC",
+  "main": "index.js",
+  "name": "d3-svg-to-png",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JuanIrache/d3-svg-to-png.git"
   },
-  "bugs": {
-    "url": "https://github.com/JuanIrache/d3-svg-to-png/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/JuanIrache/d3-svg-to-png#readme",
-  "license": "ISC",
-  "dependencies": {}
+  "version": "0.1.3"
 }

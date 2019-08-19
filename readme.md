@@ -26,7 +26,13 @@ Output: **name.png**
 
 ```js
 const d3ToPng = require('d3-svg-to-png');
-d3ToPng('svg', 'name', { scale: 3, format: 'webp', quality: 0.01, download: false, ignore: '.ignored' }).then(fileData => {
+d3ToPng('svg', 'name', {
+  scale: 3,
+  format: 'webp',
+  quality: 0.01,
+  download: false,
+  ignore: '.ignored'
+}).then(fileData => {
   //do something with the data
 });
 ```
@@ -43,6 +49,10 @@ d3ToPng('svg', 'name', { scale: 3, format: 'webp', quality: 0.01, download: fals
 Please report any problem, as this has not been thoroughly tested and could be improved.
 This module works outside of D3. It was created for the [GoPro Telemetry Extractor](https://tailorandwayne.com/gopro-telemetry-extractor/#)
 
+## Contribution
+
+Please make your changes to the **dev** branch, so that automated tests can be run before merging to **master**. Also, if possible, provide tests for new functionality.
+
 ## TODO
 
 - Add tests and continuous integration
@@ -50,4 +60,4 @@ This module works outside of D3. It was created for the [GoPro Telemetry Extract
 
 ## More creative coding
 
-If you liked this you might like some of my [app prototyping](https://prototyping.barcelona).
+If you liked this you might like other [creative coding projects](https://tailorandwayne.com/coding-projects/).
