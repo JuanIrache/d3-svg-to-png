@@ -61,3 +61,8 @@ Please make your changes to the **dev** branch, so that automated tests can be r
 ## More creative coding
 
 If you liked this you might like some of my [app prototyping](https://prototyping.barcelona).
+
+## Acknowledgements/credits
+
+- [Juan Irache](https://github.com/JuanIrache) - Main developer
+- [Thành Trang](https://github.com/trangcongthanh) - Contributor
