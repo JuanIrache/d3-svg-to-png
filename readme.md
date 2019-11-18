@@ -47,7 +47,7 @@ d3ToPng('svg', 'name', {
 ## Notes
 
 Please report any problem, as this has not been thoroughly tested and could be improved.
-This module works outside of D3. It was created for the [GoPro Telemetry Extractor](https://tailorandwayne.com/gopro-telemetry-extractor/#)
+This module works outside of D3. It was created for the [GoPro Telemetry Extractor](https://goprotelemetryextractor.com)
 
 ## Contribution
 
