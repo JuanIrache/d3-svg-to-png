@@ -1,4 +1,4 @@
-#d3-svg-to-png
+# d3-svg-to-png
 
 Converts SVG elements in the browser to PNG and other image formats, while keeping CSS styles. Optionally, it returns the data as a promise or downloads it. It can also rescale the svg image, ignore certain DOM elements...
 
@@ -41,8 +41,8 @@ d3ToPng('svg', 'name', {
 - **format** (string): The format to output to. Compatibility might vary between browsers. See [HTMLCanvasElement.toDataURL()
   ](https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toDataURL). Default: _png_
 - **quality** (number): Between 0 (lowest) and 1. Affects formats with compression, like jpg. Default: _.92_
-- **download** (boolean): Wether to download the resulting image. Default: _true_
-- **ignore** (string): A CSS selector that, the matched elements of which will not me added to the output. Default: _null_
+- **download** (boolean): Whether to download the resulting image. Default: _true_
+- **ignore** (string): A CSS selector that, the matched elements of which will not be added to the output. Default: _null_
 
 ## Notes
 
