@@ -4,7 +4,8 @@ declare module 'd3-svg-to-png' {
     scale: number
     quality: number
     download: boolean
-    ignore: string
+    ignore: string,
+    cssinline: number
   }
   function d3ToPng(selector: string, fileName: string, options?: Partial<Options>): Promise<string>
 
