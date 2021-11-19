@@ -51,7 +51,7 @@ const downloadImage = ({ file, name, format }) => {
   a.click();
 };
 
-module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.92, download = true, ignore = null } = {}) => {
+module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.92, download = true, ignore = null, cssinline = 1 } = {}) => {
   const elt = document.querySelector(target);
   //Remember all HTML, as we will modify the styles
   const rememberHTML = elt.innerHTML;
@@ -63,7 +63,9 @@ module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.9
   }
 
   //Set all the css styles inline
-  inlineStyles(target, ignore);
+  if(cssinline === 1){
+    inlineStyles(target, ignore);
+  }
 
   //Copy all html to a new canvas
   return await copyToCanvas({
