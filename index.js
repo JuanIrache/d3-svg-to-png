@@ -73,7 +73,7 @@ module.exports = async (
   const elt = document.querySelector(target);
   //Remember all HTML and CSS, as we will modify the styles
   const rememberHTML = elt.innerHTML;
-  const rememberCSS = elt.style.cssText;
+  var rememberCSS;
 
   //Remove unwanted elements
   if (ignore != null) {
@@ -83,6 +83,7 @@ module.exports = async (
 
   //Set all the css styles inline
   if (cssinline === 1) {
+    rememberCSS = elt.style.cssText;
     inlineStyles(target, ignore);
   }
 
@@ -98,7 +99,9 @@ module.exports = async (
       if (download) downloadImage({ file, name, format });
       //Undo the changes to inline styles
       elt.innerHTML = rememberHTML;
-      elt.style.cssText = rememberCSS;
+      if (cssinline === 1) {
+        elt.style.cssText = rememberCSS;
+      }
       return file;
     })
     .catch(console.error);
