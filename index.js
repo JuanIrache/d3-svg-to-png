@@ -33,11 +33,18 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
   ctxt.scale(scale, scale);
 
   var img = document.createElement('img');
-  img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
+  img.setAttribute(
+    'src',
+    'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)))
+  );
   return new Promise(resolve => {
     img.onload = () => {
       ctxt.drawImage(img, 0, 0);
-      const file = canvas.toDataURL(`image/${format}`, (format = 'png'), quality);
+      const file = canvas.toDataURL(
+        `image/${format}`,
+        (format = 'png'),
+        quality
+      );
       resolve(file);
     };
   });
@@ -51,10 +58,22 @@ const downloadImage = ({ file, name, format }) => {
   a.click();
 };
 
-module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.92, download = true, ignore = null, cssinline = 1 } = {}) => {
+module.exports = async (
+  target,
+  name,
+  {
+    scale = 1,
+    format = 'png',
+    quality = 0.92,
+    download = true,
+    ignore = null,
+    cssinline = 1
+  } = {}
+) => {
   const elt = document.querySelector(target);
-  //Remember all HTML, as we will modify the styles
+  //Remember all HTML and CSS, as we will modify the styles
   const rememberHTML = elt.innerHTML;
+  var rememberCSS;
 
   //Remove unwanted elements
   if (ignore != null) {
@@ -63,7 +82,8 @@ module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.9
   }
 
   //Set all the css styles inline
-  if(cssinline === 1){
+  if (cssinline === 1) {
+    rememberCSS = elt.style.cssText;
     inlineStyles(target, ignore);
   }
 
@@ -79,6 +99,9 @@ module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.9
       if (download) downloadImage({ file, name, format });
       //Undo the changes to inline styles
       elt.innerHTML = rememberHTML;
+      if (cssinline === 1) {
+        elt.style.cssText = rememberCSS;
+      }
       return file;
     })
     .catch(console.error);
