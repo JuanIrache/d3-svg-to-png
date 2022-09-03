@@ -1,5 +1,5 @@
-const inlineStyles = (target) => {
-  const selfCopyCss = (elt) => {
+const inlineStyles = target => {
+  const selfCopyCss = elt => {
     const computed = window.getComputedStyle(elt);
     const css = {};
     for (let i = 0; i < computed.length; i++) {
@@ -14,13 +14,13 @@ const inlineStyles = (target) => {
 
   const root = document.querySelector(target);
   selfCopyCss(root);
-  root.querySelectorAll("*").forEach((elt) => selfCopyCss(elt));
+  root.querySelectorAll('*').forEach(elt => selfCopyCss(elt));
 };
 
 const copyToCanvas = ({ target, scale, format, quality }) => {
   var svg = document.querySelector(target);
   var svgData = new XMLSerializer().serializeToString(svg);
-  var canvas = document.createElement("canvas");
+  var canvas = document.createElement('canvas');
   var svgSize = svg.getBoundingClientRect();
 
   //Resize can break shadows
@@ -29,20 +29,20 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
   canvas.style.width = svgSize.width;
   canvas.style.height = svgSize.height;
 
-  var ctxt = canvas.getContext("2d");
+  var ctxt = canvas.getContext('2d');
   ctxt.scale(scale, scale);
 
-  var img = document.createElement("img");
+  var img = document.createElement('img');
   img.setAttribute(
-    "src",
-    "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)))
+    'src',
+    'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)))
   );
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     img.onload = () => {
       ctxt.drawImage(img, 0, 0);
       const file = canvas.toDataURL(
         `image/${format}`,
-        (format = "png"),
+        (format = 'png'),
         quality
       );
       resolve(file);
@@ -51,7 +51,7 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
 };
 
 const downloadImage = ({ file, name, format }) => {
-  var a = document.createElement("a");
+  var a = document.createElement('a');
   a.download = `${name}.${format}`;
   a.href = file;
   document.body.appendChild(a);
@@ -63,11 +63,11 @@ module.exports = async (
   name,
   {
     scale = 1,
-    format = "png",
+    format = 'png',
     quality = 0.92,
     download = true,
     ignore = null,
-    cssinline = 1,
+    cssinline = 1
   } = {}
 ) => {
   const elt = document.querySelector(target);
@@ -92,9 +92,9 @@ module.exports = async (
     target,
     scale,
     format,
-    quality,
+    quality
   })
-    .then((file) => {
+    .then(file => {
       //Download if necessary
       if (download) downloadImage({ file, name, format });
       //Undo the changes to inline styles
