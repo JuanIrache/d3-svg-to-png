@@ -1,5 +1,5 @@
-const inlineStyles = target => {
-  const selfCopyCss = elt => {
+const inlineStyles = (target) => {
+  const selfCopyCss = (elt) => {
     const computed = window.getComputedStyle(elt);
     const css = {};
     for (let i = 0; i < computed.length; i++) {
@@ -14,13 +14,13 @@ const inlineStyles = target => {
 
   const root = document.querySelector(target);
   selfCopyCss(root);
-  root.querySelectorAll('*').forEach(elt => selfCopyCss(elt));
+  root.querySelectorAll("*").forEach((elt) => selfCopyCss(elt));
 };
 
 const copyToCanvas = ({ target, scale, format, quality }) => {
   var svg = document.querySelector(target);
   var svgData = new XMLSerializer().serializeToString(svg);
-  var canvas = document.createElement('canvas');
+  var canvas = document.createElement("canvas");
   var svgSize = svg.getBoundingClientRect();
 
   //Resize can break shadows
@@ -29,32 +29,51 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
   canvas.style.width = svgSize.width;
   canvas.style.height = svgSize.height;
 
-  var ctxt = canvas.getContext('2d');
+  var ctxt = canvas.getContext("2d");
   ctxt.scale(scale, scale);
 
-  var img = document.createElement('img');
-  img.setAttribute('src', 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData))));
-  return new Promise(resolve => {
+  var img = document.createElement("img");
+  img.setAttribute(
+    "src",
+    "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)))
+  );
+  return new Promise((resolve) => {
     img.onload = () => {
       ctxt.drawImage(img, 0, 0);
-      const file = canvas.toDataURL(`image/${format}`, (format = 'png'), quality);
+      const file = canvas.toDataURL(
+        `image/${format}`,
+        (format = "png"),
+        quality
+      );
       resolve(file);
     };
   });
 };
 
 const downloadImage = ({ file, name, format }) => {
-  var a = document.createElement('a');
+  var a = document.createElement("a");
   a.download = `${name}.${format}`;
   a.href = file;
   document.body.appendChild(a);
   a.click();
 };
 
-module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.92, download = true, ignore = null, cssinline = 1 } = {}) => {
+module.exports = async (
+  target,
+  name,
+  {
+    scale = 1,
+    format = "png",
+    quality = 0.92,
+    download = true,
+    ignore = null,
+    cssinline = 1,
+  } = {}
+) => {
   const elt = document.querySelector(target);
-  //Remember all HTML, as we will modify the styles
+  //Remember all HTML and CSS, as we will modify the styles
   const rememberHTML = elt.innerHTML;
+  var rememberCSS;
 
   //Remove unwanted elements
   if (ignore != null) {
@@ -63,7 +82,8 @@ module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.9
   }
 
   //Set all the css styles inline
-  if(cssinline === 1){
+  if (cssinline === 1) {
+    rememberCSS = elt.style.cssText;
     inlineStyles(target, ignore);
   }
 
@@ -72,13 +92,16 @@ module.exports = async (target, name, { scale = 1, format = 'png', quality = 0.9
     target,
     scale,
     format,
-    quality
+    quality,
   })
-    .then(file => {
+    .then((file) => {
       //Download if necessary
       if (download) downloadImage({ file, name, format });
       //Undo the changes to inline styles
       elt.innerHTML = rememberHTML;
+      if (cssinline === 1) {
+        elt.style.cssText = rememberCSS;
+      }
       return file;
     })
     .catch(console.error);
