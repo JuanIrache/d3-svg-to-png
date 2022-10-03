@@ -57,7 +57,8 @@ module.exports = async function (
     quality = 0.92,
     download = true,
     ignore = null,
-    cssinline = 1
+    cssinline = 1,
+    background = null
   } = {}
 ) {
   // Accept a selector or directly a DOM Element
@@ -75,6 +76,10 @@ module.exports = async function (
   // of the source element
   if (cssinline === 1) {
     inlineStyles(source, target);
+  }
+
+  if (background) {
+    target.style.background = background
   }
 
   //Remove unwanted elements
