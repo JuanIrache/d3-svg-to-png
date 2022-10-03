@@ -17,7 +17,7 @@ d3ToPng('selector', 'name');
 
 ## Mandatory fields
 
-- **Selector** (String): Commonly 'svg'.
+- **Selector** (String): Commonly 'svg' or DOM Element.
 - **Name** (String): Name for the file output, without extension.
 
 Output: **name.png**
