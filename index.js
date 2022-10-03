@@ -1,27 +1,20 @@
-const inlineStyles = target => {
-  const selfCopyCss = elt => {
-    const computed = window.getComputedStyle(elt);
-    const css = {};
-    for (let i = 0; i < computed.length; i++) {
-      css[computed[i]] = computed.getPropertyValue(computed[i]);
-    }
+function inlineStyles (source, target) {
+  // inline style from source element to the target (detached) one
+  const computed = window.getComputedStyle(source);
+  for (const styleKey of computed) {
+    target.style[styleKey] = computed[styleKey]
+  }
 
-    for (const key in css) {
-      elt.style[key] = css[key];
-    }
-    return css;
-  };
+  // recursively call inlineStyles for the element children
+  for (let i = 0; i < source.children.length; i++) {
+    inlineStyles(source.children[i], target.children[i])
+  }
+}
 
-  const root = document.querySelector(target);
-  selfCopyCss(root);
-  root.querySelectorAll('*').forEach(elt => selfCopyCss(elt));
-};
-
-const copyToCanvas = ({ target, scale, format, quality }) => {
-  var svg = document.querySelector(target);
-  var svgData = new XMLSerializer().serializeToString(svg);
-  var canvas = document.createElement('canvas');
-  var svgSize = svg.getBoundingClientRect();
+function copyToCanvas ({ source, target, scale, format, quality }) {
+  let svgData = new XMLSerializer().serializeToString(target);
+  let canvas = document.createElement('canvas');
+  let svgSize = source.getBoundingClientRect();
 
   //Resize can break shadows
   canvas.width = svgSize.width * scale;
@@ -29,10 +22,11 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
   canvas.style.width = svgSize.width;
   canvas.style.height = svgSize.height;
 
-  var ctxt = canvas.getContext('2d');
+  let ctxt = canvas.getContext('2d');
   ctxt.scale(scale, scale);
 
-  var img = document.createElement('img');
+  let img = document.createElement('img');
+
   img.setAttribute(
     'src',
     'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)))
@@ -40,26 +34,22 @@ const copyToCanvas = ({ target, scale, format, quality }) => {
   return new Promise(resolve => {
     img.onload = () => {
       ctxt.drawImage(img, 0, 0);
-      const file = canvas.toDataURL(
-        `image/${format}`,
-        (format = 'png'),
-        quality
-      );
-      resolve(file);
+      resolve(canvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : format}`,  quality));
     };
   });
-};
+}
 
-const downloadImage = ({ file, name, format }) => {
-  var a = document.createElement('a');
+function downloadImage ({ file, name, format }) {
+  let a = document.createElement('a');
   a.download = `${name}.${format}`;
   a.href = file;
   document.body.appendChild(a);
   a.click();
-};
+  document.body.removeChild(a);
+}
 
-module.exports = async (
-  target,
+module.exports = async function (
+  source,
   name,
   {
     scale = 1,
@@ -69,40 +59,41 @@ module.exports = async (
     ignore = null,
     cssinline = 1
   } = {}
-) => {
-  const elt = document.querySelector(target);
-  //Remember all HTML and CSS, as we will modify the styles
-  const rememberHTML = elt.innerHTML;
-  var rememberCSS;
+) {
+  // Accept a selector or directly a DOM Element
+  source = (source instanceof Element) ? source : document.querySelector(source);
+
+  // Create a new SVG element similar to the source one to avoid modifying the
+  // source element.
+  const target = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  target.innerHTML = source.innerHTML;
+  for (const attr of source.attributes) {
+    target.setAttribute(attr.name, attr.value);
+  }
+
+  // Set all the css styles inline on the target element based on the styles
+  // of the source element
+  if (cssinline === 1) {
+    inlineStyles(source, target);
+  }
 
   //Remove unwanted elements
   if (ignore != null) {
-    const elt = document.querySelector(ignore);
+    const elt = target.querySelector(ignore);
     elt.parentNode.removeChild(elt);
   }
 
-  //Set all the css styles inline
-  if (cssinline === 1) {
-    rememberCSS = elt.style.cssText;
-    inlineStyles(target, ignore);
-  }
-
   //Copy all html to a new canvas
-  return await copyToCanvas({
+  const file = await copyToCanvas({
+    source,
     target,
     scale,
     format,
     quality
-  })
-    .then(file => {
-      //Download if necessary
-      if (download) downloadImage({ file, name, format });
-      //Undo the changes to inline styles
-      elt.innerHTML = rememberHTML;
-      if (cssinline === 1) {
-        elt.style.cssText = rememberCSS;
-      }
-      return file;
-    })
-    .catch(console.error);
-};
+  });
+
+  if (download) {
+    downloadImage({ file, name, format });
+  }
+  return file;
+}
