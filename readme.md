@@ -17,7 +17,7 @@ d3ToPng('selector', 'name');
 
 ## Mandatory fields
 
-- **Selector** (String): Commonly 'svg'.
+- **Selector** (String): Commonly 'svg' or DOM Element.
 - **Name** (String): Name for the file output, without extension.
 
 Output: **name.png**
@@ -31,7 +31,8 @@ d3ToPng('svg', 'name', {
   format: 'webp',
   quality: 0.01,
   download: false,
-  ignore: '.ignored'
+  ignore: '.ignored',
+  background: 'white'
 }).then(fileData => {
   //do something with the data
 });
@@ -43,6 +44,7 @@ d3ToPng('svg', 'name', {
 - **quality** (number): Between 0 (lowest) and 1. Affects formats with compression, like jpg. Default: _.92_
 - **download** (boolean): Whether to download the resulting image. Default: _true_
 - **ignore** (string): A CSS selector that, the matched elements of which will not be added to the output. Default: _null_
+- **background** (string): A style to be added to the svg element. The value will be added as the _background_ shorthand css property, so it can be a single color, an image a gradient or any thing that is a valid background. Default: _null_
 
 ## Notes
 
