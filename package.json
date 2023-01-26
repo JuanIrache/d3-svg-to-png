@@ -1,6 +1,6 @@
 {
   "name": "d3-svg-to-png",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Converts SVG elements to PNG and other image formats while keeping CSS styles",
   "main": "index.js",
   "scripts": {
