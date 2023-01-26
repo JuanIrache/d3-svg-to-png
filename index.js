@@ -12,9 +12,12 @@ function inlineStyles (source, target) {
 }
 
 function copyToCanvas ({ source, target, scale, format, quality }) {
+  let svgSize = source.getBoundingClientRect();
+  target.setAttribute('width', svgSize.width + 'px');
+  target.setAttribute('height', svgSize.height + 'px');
+
   let svgData = new XMLSerializer().serializeToString(target);
   let canvas = document.createElement('canvas');
-  let svgSize = source.getBoundingClientRect();
 
   //Resize can break shadows
   canvas.width = svgSize.width * scale;
