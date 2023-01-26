@@ -68,3 +68,4 @@ If you liked this you might like some of my [app prototyping](https://prototypin
 
 - [Juan Irache](https://github.com/JuanIrache) - Main developer
 - [Thành Trang](https://github.com/trangcongthanh) - Contributor
+- [dwiesner](https://github.com/dwiesner) - Contributor
