@@ -84,8 +84,8 @@ module.exports = async function (
 
   //Remove unwanted elements
   if (ignore != null) {
-    const elt = target.querySelector(ignore);
-    elt.parentNode.removeChild(elt);
+    const elts = target.querySelectorAll(ignore);
+    [].forEach.call(elts, elt => elt.parentNode.removeChild(elt));
   }
 
   //Copy all html to a new canvas
