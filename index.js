@@ -1,17 +1,17 @@
-function inlineStyles (source, target) {
+function inlineStyles(source, target) {
   // inline style from source element to the target (detached) one
   const computed = window.getComputedStyle(source);
   for (const styleKey of computed) {
-    target.style[styleKey] = computed[styleKey]
+    target.style[styleKey] = computed[styleKey];
   }
 
   // recursively call inlineStyles for the element children
   for (let i = 0; i < source.children.length; i++) {
-    inlineStyles(source.children[i], target.children[i])
+    inlineStyles(source.children[i], target.children[i]);
   }
 }
 
-function copyToCanvas ({ source, target, scale, format, quality }) {
+function copyToCanvas({ source, target, scale, format, quality }) {
   let svgData = new XMLSerializer().serializeToString(target);
   let canvas = document.createElement('canvas');
   let svgSize = source.getBoundingClientRect();
@@ -34,12 +34,14 @@ function copyToCanvas ({ source, target, scale, format, quality }) {
   return new Promise(resolve => {
     img.onload = () => {
       ctxt.drawImage(img, 0, 0);
-      resolve(canvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : format}`,  quality));
+      resolve(
+        canvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : format}`, quality)
+      );
     };
   });
 }
 
-function downloadImage ({ file, name, format }) {
+function downloadImage({ file, name, format }) {
   let a = document.createElement('a');
   a.download = `${name}.${format}`;
   a.href = file;
@@ -62,11 +64,11 @@ module.exports = async function (
   } = {}
 ) {
   // Accept a selector or directly a DOM Element
-  source = (source instanceof Element) ? source : document.querySelector(source);
+  source = source instanceof Element ? source : document.querySelector(source);
 
   // Create a new SVG element similar to the source one to avoid modifying the
   // source element.
-  const target = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+  const target = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   target.innerHTML = source.innerHTML;
   for (const attr of source.attributes) {
     target.setAttribute(attr.name, attr.value);
@@ -79,7 +81,7 @@ module.exports = async function (
   }
 
   if (background) {
-    target.style.background = background
+    target.style.background = background;
   }
 
   //Remove unwanted elements
@@ -101,4 +103,4 @@ module.exports = async function (
     downloadImage({ file, name, format });
   }
   return file;
-}
+};
