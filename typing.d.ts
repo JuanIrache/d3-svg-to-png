@@ -8,7 +8,7 @@ declare module 'd3-svg-to-png' {
     cssinline: number
     background: string
   }
-  function d3ToPng(selector: string, fileName: string, options?: Partial<Options>): Promise<string>
+  function d3ToPng(source: string | Element, fileName: string, options?: Partial<Options>): Promise<string>
 
   export default d3ToPng
 }
